@@ -102,7 +102,8 @@ export const TEAM = [
     role: 'Founder & CEO',
     initial: 'SM',
     color: '#FF9966',
-    bio: 'Visionary leader with 10+ years in technology innovation'
+    bio: 'Visionary leader with 10+ years in technology innovation',
+    linkedin: 'https://www.linkedin.com/in/sudipto-mtr'
   },
   {
     name: 'Pallabi Datta',
@@ -182,8 +183,7 @@ export const NAVIGATION_LINKS = [
 ];
 
 export const SOCIAL_LINKS = [
-  { name: 'LinkedIn', url: 'https://linkedin.com', icon: 'linkedin' },
-  { name: 'Twitter', url: 'https://twitter.com', icon: 'twitter' },
-  { name: 'GitHub', url: 'https://github.com', icon: 'github' },
-  { name: 'Instagram', url: 'https://instagram.com', icon: 'instagram' },
+  { name: 'Company LinkedIn', url: 'https://www.linkedin.com/company/infinititech-partners', icon: 'linkedin' },
+  { name: 'GitHub', url: 'https://github.com/infps', icon: 'github' },
+  { name: 'Sudipto LinkedIn', url: 'https://www.linkedin.com/in/sudipto-mtr', icon: 'linkedin' },
 ];

@@ -1,9 +1,11 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function LiquidEther() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -12,10 +14,19 @@ export default function LiquidEther() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    // Detect device type
+    const checkDeviceType = () => {
+      const width = window.innerWidth;
+      setIsMobile(width < 768);
+      setIsTablet(width >= 768 && width < 1024);
+    };
+    checkDeviceType();
+
     // Set canvas size
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+      checkDeviceType();
     };
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
@@ -31,20 +42,33 @@ export default function LiquidEther() {
       hue: number;
     }> = [];
 
-    const particleCount = 50;
+    // Responsive particle count and size
+    const getParticleConfig = () => {
+      if (isMobile) {
+        return { count: 20, minSize: 30, maxSize: 60 }; // Fewer, smaller particles for mobile
+      } else if (isTablet) {
+        return { count: 35, minSize: 40, maxSize: 80 }; // Medium for tablet
+      } else {
+        return { count: 50, minSize: 50, maxSize: 100 }; // Full effect for desktop
+      }
+    };
+
+    const config = getParticleConfig();
+    const particleCount = config.count;
+
     const colors = {
       primary: { h: 20, s: 100, l: 70 }, // #FF9966 (coral)
       secondary: { h: 15, s: 100, l: 60 }, // #FF6B35 (orange)
     };
 
-    // Initialize particles
+    // Initialize particles with responsive sizing
     for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         vx: (Math.random() - 0.5) * 0.5,
         vy: (Math.random() - 0.5) * 0.5,
-        size: Math.random() * 100 + 50,
+        size: Math.random() * (config.maxSize - config.minSize) + config.minSize,
         opacity: Math.random() * 0.3 + 0.1,
         hue: Math.random() > 0.5 ? colors.primary.h : colors.secondary.h,
       });
@@ -60,15 +84,34 @@ export default function LiquidEther() {
       time += 0.005;
 
       particles.forEach((particle, i) => {
-        // Update position with sine wave motion for fluid effect
-        particle.x += particle.vx + Math.sin(time + i * 0.1) * 0.3;
-        particle.y += particle.vy + Math.cos(time + i * 0.1) * 0.3;
+        // Different motion patterns based on device type
+        if (isMobile) {
+          // Horizontal flow on mobile with looping
+          particle.x += 1.5; // Steady horizontal movement
+          particle.y += Math.sin(time + i * 0.2) * 0.5; // Gentle vertical wave
 
-        // Wrap around screen
-        if (particle.x < -particle.size) particle.x = canvas.width + particle.size;
-        if (particle.x > canvas.width + particle.size) particle.x = -particle.size;
-        if (particle.y < -particle.size) particle.y = canvas.height + particle.size;
-        if (particle.y > canvas.height + particle.size) particle.y = -particle.size;
+          // Loop horizontally
+          if (particle.x > canvas.width + particle.size) {
+            particle.x = -particle.size;
+            particle.y = Math.random() * canvas.height; // Randomize Y position on loop
+          }
+        } else {
+          // Original fluid motion for desktop/tablet
+          particle.x += particle.vx + Math.sin(time + i * 0.1) * 0.3;
+          particle.y += particle.vy + Math.cos(time + i * 0.1) * 0.3;
+        }
+
+        // Wrap around screen for desktop/tablet
+        if (!isMobile) {
+          if (particle.x < -particle.size) particle.x = canvas.width + particle.size;
+          if (particle.x > canvas.width + particle.size) particle.x = -particle.size;
+          if (particle.y < -particle.size) particle.y = canvas.height + particle.size;
+          if (particle.y > canvas.height + particle.size) particle.y = -particle.size;
+        } else {
+          // Vertical bounds for mobile
+          if (particle.y < -particle.size) particle.y = canvas.height + particle.size;
+          if (particle.y > canvas.height + particle.size) particle.y = -particle.size;
+        }
 
         // Pulsing opacity
         const pulseOpacity = particle.opacity + Math.sin(time * 2 + i) * 0.1;
@@ -102,13 +145,20 @@ export default function LiquidEther() {
       window.removeEventListener('resize', resizeCanvas);
       cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [isMobile, isTablet]);
+
+  // Responsive blur amount
+  const getBlurAmount = () => {
+    if (isMobile) return '20px'; // Less blur on mobile for better performance
+    if (isTablet) return '30px'; // Medium blur on tablet
+    return '40px'; // Full blur on desktop
+  };
 
   return (
     <canvas
       ref={canvasRef}
       className="absolute inset-0 w-full h-full"
-      style={{ filter: 'blur(40px)' }}
+      style={{ filter: `blur(${getBlurAmount()})` }}
     />
   );
 }
