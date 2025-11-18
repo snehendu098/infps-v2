@@ -7,7 +7,8 @@ import ScrollProgress from "@/components/layout/ScrollProgress";
 import SplashCursor from "@/components/effects/SplashCursor";
 import LiquidEther from "@/components/effects/LiquidEther";
 import SmoothScroll from "@/components/effects/SmoothScroll";
-import FestivePopup from "@/components/cms/FestivePopup";
+import Snowfall from "@/components/effects/Snowfall";
+import ChristmasLights from "@/components/effects/ChristmasLights";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,8 +26,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={inter.className}>
-        {/* Festive Popup */}
-        <FestivePopup />
+        {/* Christmas Effects */}
+        <Snowfall />
+        <ChristmasLights />
 
         {/* Scroll Progress Line */}
         <ScrollProgress />
