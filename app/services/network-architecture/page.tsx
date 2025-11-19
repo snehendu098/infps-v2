@@ -1,22 +1,30 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { Network, CheckCircle, ArrowLeft } from 'lucide-react';
+import { Network, CheckCircle, ArrowLeft, TrendingUp, Zap } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Network Architecture Solutions | SD-WAN, Firewall & Enterprise Networking',
-  description: 'Enterprise-grade network design, SD-WAN architecture, firewall security, multi-site connectivity, load balancing & optimized network infrastructure.',
-  keywords: 'network architecture services, SD-WAN solutions, enterprise networking USA, firewall architecture, corporate network design, network optimization, secure infrastructure',
+  description: 'Enterprise-grade network architecture, SD-WAN, firewall security, multi-site connectivity, load balancing & optimized network infrastructure for scalable and secure operations.',
+  keywords: 'network architecture services, SD-WAN company USA, firewall engineering, enterprise network design, network optimization services, infrastructure engineering, secure corporate networks',
 };
 
 export default function NetworkArchitecturePage() {
-  const deliverables = [
-    'Enterprise network design & restructuring',
-    'SD-WAN solutions',
-    'Firewall & perimeter security',
-    'Multi-site connectivity',
-    'Wireless network design',
+  const services = [
+    'Enterprise network design and restructuring',
+    'SD-WAN architecture and implementation',
+    'Firewall, IDS/IPS & perimeter protection',
+    'Multi-site connectivity & VPN frameworks',
+    'Wireless network engineering',
     'Load balancing & traffic optimization',
-    'Network health monitoring',
+    'Network monitoring & health analytics',
+  ];
+
+  const businessImpact = [
+    'Reduced downtime = more transactions, more productivity',
+    'Optimized routing = lower bandwidth and cloud cost',
+    'Better security = fewer breaches, lower risk',
+    'Faster internal tools = faster teams → faster delivery',
+    'Scalable design = future expansion without expensive rebuilds',
   ];
 
   return (
@@ -51,62 +59,116 @@ export default function NetworkArchitecturePage() {
 
           <div className="max-w-5xl">
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-6">
-              Your network is the backbone of your operations. We engineer <span className="font-semibold text-foreground">high-performance networks</span> capable of supporting enterprise workloads, distributed operations, and real-time applications.
+              A modern business runs on its network. Every application, every device, every cloud dependency, every remote employee - all rely on a stable, fast, and secure network backbone. When the network is slow, unstable, or poorly designed, the entire business slows down with it. Sales drop, operations lag, communication breaks, and productivity takes a hit.
             </p>
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-              Our network solutions emphasize speed, stability, redundancy, and airtight security.
+              At Infiniti Tech Partners, we engineer <span className="font-semibold text-foreground">network architectures built for scale, resilience, and high performance</span>. We design enterprise networks that stay secure under pressure, handle large volumes of traffic, and seamlessly support remote work, cloud services, and multi-location operations.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Main Content */}
+      {/* Why Network Architecture Matters */}
       <section className="py-20 md:py-32 bg-background">
         <div className="max-w-[1400px] mx-auto px-6 md:px-8">
-          <div className="grid md:grid-cols-2 gap-12 items-start">
-            {/* Description */}
-            <div>
-              <h2 className="text-3xl md:text-4xl font-extrabold mb-6 gradient-text">
-                Fast, Secure, Scalable Networks
-              </h2>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                Modern businesses depend on networks that are fast, reliable, and secure. We design networks that stay stable under pressure and scale without disruption.
-              </p>
-            </div>
+          <h2 className="text-3xl md:text-5xl font-extrabold mb-12 gradient-text text-center">
+            Why Network Architecture Affects Business Revenue
+          </h2>
+          <p className="text-lg text-muted-foreground leading-relaxed max-w-4xl mx-auto text-center mb-12">
+            A high-performance network directly fuels business efficiency and profitability.
+          </p>
 
-            {/* What We Deliver */}
-            <div className="bg-muted/30 p-8 rounded-2xl border-2 border-primary/20">
-              <h3 className="text-2xl font-bold mb-6 text-foreground">What We Deliver</h3>
-              <div className="space-y-4">
-                {deliverables.map((item, index) => (
-                  <div key={index} className="flex items-start gap-3">
-                    <CheckCircle className="text-primary mt-1 flex-shrink-0" size={20} />
-                    <span className="text-foreground/90 leading-relaxed">{item}</span>
-                  </div>
-                ))}
-              </div>
+          <div className="max-w-4xl mx-auto space-y-4 bg-muted/30 p-8 rounded-xl border-2 border-primary/20">
+            <div className="flex items-start gap-3">
+              <Zap className="text-primary mt-1 flex-shrink-0" size={24} />
+              <p className="text-foreground"><span className="font-semibold">Fast networks</span> → fast operations → faster customer service</p>
+            </div>
+            <div className="flex items-start gap-3">
+              <Zap className="text-primary mt-1 flex-shrink-0" size={24} />
+              <p className="text-foreground"><span className="font-semibold">Reduced latency</span> → smoother digital experiences → higher conversions</p>
+            </div>
+            <div className="flex items-start gap-3">
+              <Zap className="text-primary mt-1 flex-shrink-0" size={24} />
+              <p className="text-foreground"><span className="font-semibold">Strong network security</span> → protects customer data and brand integrity</p>
+            </div>
+            <div className="flex items-start gap-3">
+              <Zap className="text-primary mt-1 flex-shrink-0" size={24} />
+              <p className="text-foreground"><span className="font-semibold">Stable connectivity</span> → fewer outages → more productivity</p>
+            </div>
+            <div className="flex items-start gap-3">
+              <Zap className="text-primary mt-1 flex-shrink-0" size={24} />
+              <p className="text-foreground"><span className="font-semibold">Scalable architecture</span> → supports growth without major reinvestment</p>
             </div>
           </div>
 
-          {/* Closing Statement */}
-          <div className="mt-16 text-center">
-            <div className="bg-gradient-to-r from-primary/10 via-secondary/10 to-primary/10 p-12 rounded-3xl border-2 border-primary/30">
-              <p className="text-2xl md:text-3xl font-bold text-foreground leading-relaxed">
-                We design networks that <span className="gradient-text">stay fast, stay secure, and scale without friction</span>.
-              </p>
+          <p className="text-xl font-semibold text-foreground mt-8 text-center">
+            A poorly designed network silently destroys revenue. A well-designed network silently increases it.
+          </p>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section className="py-20 md:py-32 bg-gradient-to-b from-muted/30 to-background">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-8">
+          <h2 className="text-3xl md:text-5xl font-extrabold mb-12 gradient-text text-center">
+            Network Services We Deliver
+          </h2>
+          <p className="text-lg text-muted-foreground leading-relaxed max-w-4xl mx-auto text-center mb-16">
+            We focus on intelligent routing, high availability, secure perimeter defenses, and cloud-aware connectivity. Whether you are operating from one office or multiple global locations, we build your network to maintain speed, stability, and airtight security.
+          </p>
+
+          <div className="bg-background p-8 md:p-12 rounded-2xl border-2 border-primary/20">
+            <div className="grid md:grid-cols-2 gap-6">
+              {services.map((service, index) => (
+                <div key={index} className="flex items-start gap-3">
+                  <CheckCircle className="text-primary mt-1 flex-shrink-0" size={20} />
+                  <span className="text-foreground/90 leading-relaxed">{service}</span>
+                </div>
+              ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Profitability Section */}
+      <section className="py-20 md:py-32 bg-background">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-8">
+          <h2 className="text-3xl md:text-5xl font-extrabold mb-12 gradient-text text-center">
+            How Network Engineering Improves Profitability
+          </h2>
+          <div className="max-w-4xl mx-auto space-y-4 bg-muted/30 p-8 rounded-xl border-2 border-primary/20">
+            {businessImpact.map((item, index) => (
+              <div key={index} className="flex items-start gap-3">
+                <TrendingUp className="text-primary mt-1 flex-shrink-0" size={24} />
+                <p className="text-foreground text-lg">{item}</p>
+              </div>
+            ))}
+          </div>
+          <p className="text-xl font-semibold text-foreground mt-8 text-center">
+            A strong network multiplies the power of every other system in your stack.
+          </p>
+        </div>
+      </section>
+
+      {/* Closing Statement */}
+      <section className="py-20 md:py-32 bg-gradient-to-b from-muted/30 to-background">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-8">
+          <div className="bg-gradient-to-r from-primary/10 via-secondary/10 to-primary/10 p-12 rounded-3xl border-2 border-primary/30 text-center">
+            <p className="text-2xl md:text-4xl font-bold text-foreground leading-relaxed">
+              We engineer networks that <span className="gradient-text">power business growth</span>.
+            </p>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 md:py-32 bg-gradient-to-b from-muted/30 to-background">
+      <section className="py-20 md:py-32 bg-background">
         <div className="max-w-4xl mx-auto text-center px-6 md:px-8">
           <h2 className="text-3xl md:text-5xl font-extrabold mb-6 gradient-text">
             Ready to Optimize Your Network?
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground mb-10">
-            Let's build a network infrastructure that supports your growth and operations.
+            Let's build a fast, secure, and scalable network infrastructure for your organization.
           </p>
           <Link
             href="/contact"
