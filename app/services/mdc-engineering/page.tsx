@@ -63,8 +63,8 @@ export default function MDCEngineeringPage() {
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-6">
               A modern data center is the beating heart of every ambitious enterprise. As organizations scale, adopt hybrid architectures, push data-heavy workloads, and shift to automation-driven operations, their infrastructure must evolve with them. Infiniti Tech Partners engineers <span className="font-semibold text-foreground">Modern Data Centers (MDC)</span> built not only for today's computing demands but for the unpredictable, high-growth future that every competitive business faces.
             </p>
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-              Our MDC engineering team combines deep expertise in physical infrastructure, virtualization, cybersecurity, and cloud integrations to create data centers that are resilient, cost-efficient, and fully prepared for dynamic scaling.
+            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-6">
+              Our MDC engineering team combines deep expertise in physical infrastructure, virtualization, cybersecurity, and cloud integrations to create data centers that are resilient, cost-efficient, and fully prepared for dynamic scaling. Whether it's modernizing a legacy setup, building a hybrid data center, introducing high-availability architecture, or optimizing workload distribution, we ensure your digital backbone is engineered with precision.
             </p>
           </div>
         </div>

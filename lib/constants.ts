@@ -125,6 +125,14 @@ export const TEAM = [
     initial: 'SC',
     color: '#f59e0b',
     bio: 'Pioneering intelligent solutions with machine learning'
+  },
+  {
+    name: 'Achyut Pal',
+    role: 'Sr Developer',
+    initial: 'AP',
+    color: '#ec4899',
+    bio: 'Senior developer specializing in scalable enterprise solutions',
+    linkedin: 'https://www.linkedin.com/in/achyutpal21'
   }
 ];
 
