@@ -186,6 +186,7 @@ export const NAVIGATION_LINKS = [
   { label: 'About Us', href: '/about' },
   { label: 'Services', href: '/services' },
   { label: 'Portfolio', href: '/portfolio' },
+  { label: 'Products', href: '/products/hrms' },
   { label: 'Team', href: '/team' },
   { label: 'Contact', href: '/contact' },
 ];

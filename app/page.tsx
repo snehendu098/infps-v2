@@ -3,6 +3,7 @@ import AboutPreview from "@/components/home/AboutPreview";
 import ServicesPreview from "@/components/home/ServicesPreview";
 import PortfolioPreview from "@/components/home/PortfolioPreview";
 import WorkProcess from "@/components/home/WorkProcess";
+import ProductsPreview from "@/components/home/ProductsPreview";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
@@ -12,6 +13,7 @@ export default function Home() {
       <HeroSection />
       <AboutPreview />
       <ServicesPreview />
+      <ProductsPreview />
       <PortfolioPreview />
       <WorkProcess />
 
