@@ -2,10 +2,22 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { Store, Calculator, GraduationCap, Truck, Building2 } from 'lucide-react';
+import { Store, Calculator, GraduationCap, Truck, Building2, Users } from 'lucide-react';
 
 export default function ProductsPage() {
   const products = [
+    {
+      title: 'HRMS',
+      subtitle: 'Human Resource Management System',
+      category: 'HR / Workforce / Enterprise',
+      slug: 'hrms',
+      icon: Users,
+      color: '#6366f1',
+      image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070',
+      description: 'Comprehensive HRMS with advanced attendance tracking, idle detection, suspicious activity monitoring, payroll processing, and project management.',
+      technologies: ['Next.js 15', 'Prisma', 'PostgreSQL', 'JWT Auth', 'Tailwind CSS', 'Radix UI'],
+      highlights: 'Dual-heartbeat attendance, bot detection, printable payslips, role-based access',
+    },
     {
       title: 'Marketplace',
       subtitle: 'B2B Commodity Trading Platform',

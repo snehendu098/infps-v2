@@ -25,12 +25,10 @@ export default function HRMSProductPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link
-                href="https://hrms1.vercel.app"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/contact"
                 className="inline-flex items-center justify-center gap-3 bg-white text-primary px-8 py-4 rounded-full text-lg font-bold transition-all hover:scale-105 hover:shadow-2xl"
               >
-                Launch HRMS
+                Request Demo
                 <ArrowRight size={20} />
               </Link>
               <Link
@@ -148,7 +146,7 @@ export default function HRMSProductPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link
-              href="https://hrms1.vercel.app"
+              href="https://hrmsdemo-beta.vercel.app"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-3 bg-white text-primary px-10 py-5 rounded-full text-lg font-bold transition-all hover:scale-105 hover:shadow-2xl"
@@ -172,42 +170,42 @@ export default function HRMSProductPage() {
 const features = [
   {
     title: "Employee Management",
-    description: "Complete employee profiles with KYC documents, department tracking, and reporting hierarchy management.",
+    description: "Complete employee profiles with KYC documents, department tracking, reporting hierarchy, and onboarding/offboarding workflows.",
     icon: <Users className="w-8 h-8 text-primary" />,
   },
   {
-    title: "Attendance & Leave",
-    description: "Daily attendance tracking with punch in/out, break time monitoring, and comprehensive leave management.",
+    title: "Advanced Attendance",
+    description: "Dual-heartbeat system with idle time detection, real-time activity monitoring, break tracking, and IP address logging.",
     icon: <Clock className="w-8 h-8 text-primary" />,
   },
   {
+    title: "Suspicious Activity Detection",
+    description: "Identifies bot/automation tools including mouse jigglers, auto-typers, and macros. Keystroke and mouse pattern analysis.",
+    icon: <Shield className="w-8 h-8 text-primary" />,
+  },
+  {
     title: "Payroll Management",
-    description: "Automated salary calculations with component-based structure, tax calculations, and printable payslips.",
+    description: "Automated salary calculations with component-based structure (Basic, HRA, Medical), tax calculations, and printable payslips (3 per A4).",
     icon: <DollarSign className="w-8 h-8 text-primary" />,
   },
   {
-    title: "Project Management",
-    description: "Project creation with milestones, task assignment, member management, and status tracking.",
+    title: "Project & Task Management",
+    description: "Project creation with milestones, task assignment, Azure DevOps & Asana integrations, and work item synchronization.",
     icon: <TrendingUp className="w-8 h-8 text-primary" />,
   },
   {
     title: "Sales CRM",
-    description: "Lead management with pipeline stages, conversion tracking, and commission calculations.",
+    description: "Lead management with pipeline stages, conversion tracking, sales target monitoring, and commission calculations.",
     icon: <BarChart3 className="w-8 h-8 text-primary" />,
   },
   {
     title: "Accounts & Invoicing",
-    description: "Income and expense tracking, category-based accounting, invoice generation, and financial reporting.",
+    description: "Income and expense tracking, category-based accounting, invoice generation, multi-currency support, and financial reporting.",
     icon: <FileText className="w-8 h-8 text-primary" />,
   },
   {
-    title: "Security",
-    description: "JWT authentication, role-based access control, password hashing, and secure HTTP headers.",
-    icon: <Shield className="w-8 h-8 text-primary" />,
-  },
-  {
-    title: "Performance",
-    description: "Built with Next.js 15 and optimized for speed, delivering fast page loads and smooth interactions.",
+    title: "Enterprise Security",
+    description: "JWT with httpOnly cookies, bcrypt hashing, role-based access, granular permissions, CSRF/XSS protection, and complete audit logging.",
     icon: <Zap className="w-8 h-8 text-primary" />,
   },
 ];
