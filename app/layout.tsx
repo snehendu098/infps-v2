@@ -34,7 +34,7 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <head>
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-HSSWXRPFQR"
+          src="https://www.googletagmanager.com/gtag/js?id=G-9NFYD9F3XX"
           strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
@@ -42,7 +42,7 @@ export default function RootLayout({
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-HSSWXRPFQR');
+            gtag('config', 'G-9NFYD9F3XX');
           `}
         </Script>
       </head>
