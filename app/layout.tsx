@@ -32,7 +32,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <head>
+      <head />
+      <body className={inter.className}>
+        {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-9NFYD9F3XX"
           strategy="afterInteractive"
@@ -45,8 +47,6 @@ export default function RootLayout({
             gtag('config', 'G-9NFYD9F3XX');
           `}
         </Script>
-      </head>
-      <body className={inter.className}>
         {/* Christmas Effects */}
         <Snowfall />
         <ChristmasLights />
