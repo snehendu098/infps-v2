@@ -51,7 +51,7 @@ export default function AboutPage() {
           <div className="relative w-full h-[300px] md:h-[500px] rounded-3xl overflow-hidden mb-12 fade-in-up" style={{ animationDelay: '0.2s' }}>
             <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20" />
             <Image
-              src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072"
+              src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=2070"
               alt="Technology and Innovation"
               fill
               className="object-cover"
