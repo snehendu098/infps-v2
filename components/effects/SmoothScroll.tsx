@@ -2,7 +2,15 @@
 
 import { useEffect } from 'react';
 
-export default function SmoothScroll() {
+interface SmoothScrollProps {
+  duration?: number;
+  navbarOffset?: number;
+}
+
+export default function SmoothScroll({
+  duration = 1500,
+  navbarOffset = 80,
+}: SmoothScrollProps) {
   useEffect(() => {
     // Handle anchor link clicks with smooth animated scroll
     const handleClick = (e: MouseEvent) => {
@@ -20,15 +28,14 @@ export default function SmoothScroll() {
       const targetElement = document.getElementById(targetId);
 
       if (targetElement) {
-        const navbarHeight = 80;
-        const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - navbarHeight;
+        const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - navbarOffset;
 
         // Smooth scroll with enhanced easing
-        smoothScrollTo(targetPosition, 1500);
+        smoothScrollTo(targetPosition, duration);
       }
     };
 
-    const smoothScrollTo = (target: number, duration: number) => {
+    const smoothScrollTo = (target: number, scrollDuration: number) => {
       const start = window.pageYOffset;
       const distance = target - start;
       const startTime = performance.now();
@@ -42,7 +49,7 @@ export default function SmoothScroll() {
 
       const scroll = (currentTime: number) => {
         const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
+        const progress = Math.min(elapsed / scrollDuration, 1);
         const easeProgress = easeInOutQuart(progress);
 
         window.scrollTo(0, start + distance * easeProgress);

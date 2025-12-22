@@ -1,9 +1,35 @@
 'use client';
 
-import { WORK_PROCESS } from '@/lib/constants';
-import { CheckCircle } from 'lucide-react';
+import { CheckCircle, Search, FileText, Lightbulb, Code, CheckSquare, Rocket, type LucideIcon } from 'lucide-react';
+import type { WorkProcessStep } from '@/lib/sanity/types';
 
-export default function WorkProcess() {
+// Icon mapping for work process steps
+const ICON_MAP: Record<string, LucideIcon> = {
+  Search,
+  FileText,
+  Lightbulb,
+  Code,
+  CheckSquare,
+  Rocket,
+  CheckCircle,
+};
+
+// Fallback data if Sanity fetch fails
+const FALLBACK_WORK_PROCESS = [
+  { _id: '1', stepNumber: '01', title: 'Discovery', description: 'Understanding your business requirements and goals', icon: 'Search', points: ['Stakeholder interviews', 'Market research', 'Competitive analysis', 'Requirements gathering'] },
+  { _id: '2', stepNumber: '02', title: 'Planning', description: 'Creating a strategic roadmap for success', icon: 'FileText', points: ['Project scope definition', 'Resource planning', 'Timeline creation', 'Risk assessment'] },
+  { _id: '3', stepNumber: '03', title: 'Design', description: 'Crafting user-centric solutions', icon: 'Lightbulb', points: ['UX/UI design', 'Prototyping', 'User testing', 'Design iterations'] },
+  { _id: '4', stepNumber: '04', title: 'Development', description: 'Building robust and scalable solutions', icon: 'Code', points: ['Agile development', 'Code reviews', 'Quality assurance', 'Continuous integration'] },
+  { _id: '5', stepNumber: '05', title: 'Testing', description: 'Ensuring quality and reliability', icon: 'CheckSquare', points: ['Unit testing', 'Integration testing', 'Performance testing', 'Security testing'] },
+  { _id: '6', stepNumber: '06', title: 'Deployment', description: 'Launching your solution to the world', icon: 'Rocket', points: ['Staged rollout', 'Monitoring setup', 'Documentation', 'Training & support'] },
+];
+
+interface WorkProcessProps {
+  workProcess?: WorkProcessStep[];
+}
+
+export default function WorkProcess({ workProcess }: WorkProcessProps) {
+  const displayProcess = workProcess && workProcess.length > 0 ? workProcess : FALLBACK_WORK_PROCESS;
   return (
     <section className="py-32 bg-background/30 relative z-10">
       <div className="max-w-[1400px] mx-auto px-8">
@@ -29,13 +55,14 @@ export default function WorkProcess() {
           />
 
           {/* Steps */}
-          {WORK_PROCESS.map((step, idx) => {
-            const Icon = step.icon;
+          {displayProcess.map((step, idx) => {
+            const iconName = step.icon || 'CheckCircle';
+            const Icon = ICON_MAP[iconName] || CheckCircle;
             const isEven = idx % 2 === 0;
 
             return (
               <div
-                key={idx}
+                key={step._id || idx}
                 className={`flex flex-col lg:flex-row items-center mb-16 lg:mb-24 relative ${
                   isEven ? '' : 'lg:flex-row-reverse'
                 }`}
@@ -48,7 +75,7 @@ export default function WorkProcess() {
                   >
                     {/* Step Header */}
                     <div className="flex items-center gap-4 mb-4">
-                      <div className="text-6xl font-extrabold gradient-text">{step.number}</div>
+                      <div className="text-6xl font-extrabold gradient-text">{step.stepNumber}</div>
                       <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
                         <Icon size={28} className="text-white" />
                       </div>
@@ -64,7 +91,7 @@ export default function WorkProcess() {
 
                     {/* Step Points */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {step.points.map((point, pIdx) => (
+                      {(step.points || []).map((point, pIdx) => (
                         <div key={pIdx} className="flex items-center gap-2 text-sm">
                           <CheckCircle size={16} className="text-primary flex-shrink-0" />
                           <span className="text-muted-foreground">{point}</span>

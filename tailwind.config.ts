@@ -56,6 +56,52 @@ const config: Config = {
       rotate: {
         'y-180': '180deg',
       },
+      animation: {
+        'marquee': 'marquee 30s linear infinite',
+        'marquee-slow': 'marquee 50s linear infinite',
+        'marquee-fast': 'marquee 20s linear infinite',
+        'fade-in': 'fadeIn 0.5s ease-out',
+        'fade-up': 'fadeUp 0.5s ease-out',
+        'fade-down': 'fadeDown 0.5s ease-out',
+        'fade-left': 'fadeLeft 0.5s ease-out',
+        'fade-right': 'fadeRight 0.5s ease-out',
+        'zoom-in': 'zoomIn 0.5s ease-out',
+        'scale-up': 'scaleUp 0.5s ease-out',
+      },
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-33.333%)' },
+        },
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        fadeUp: {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        fadeDown: {
+          '0%': { opacity: '0', transform: 'translateY(-20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        fadeLeft: {
+          '0%': { opacity: '0', transform: 'translateX(20px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
+        fadeRight: {
+          '0%': { opacity: '0', transform: 'translateX(-20px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
+        zoomIn: {
+          '0%': { opacity: '0', transform: 'scale(0.95)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
+        },
+        scaleUp: {
+          '0%': { opacity: '0', transform: 'scale(0.8)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
+        },
+      },
     },
   },
   plugins: [],

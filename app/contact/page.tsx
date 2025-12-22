@@ -1,10 +1,47 @@
 'use client';
 
 import { useState } from 'react';
-import { Mail, Phone, MapPin, Send, Linkedin, Twitter, Github, Instagram } from 'lucide-react';
-import { COMPANY_INFO } from '@/lib/constants';
+import { Mail, Phone, MapPin, Send, Linkedin, Twitter, Github, Instagram, Facebook, Youtube } from 'lucide-react';
+import { useSiteSettings } from '@/lib/context/SiteSettingsContext';
+
+const socialIcons = {
+  linkedin: Linkedin,
+  twitter: Twitter,
+  github: Github,
+  instagram: Instagram,
+  facebook: Facebook,
+  youtube: Youtube,
+};
+
+// Default values for fallback
+const defaultContactInfo = {
+  email: 'infinititechpartners@gmail.com',
+  phone: '+91 629 103 3969',
+  address: {
+    city: 'Kolkata',
+    state: 'West Bengal',
+    country: 'India',
+  },
+};
+
+const defaultSocialLinks = [
+  { name: 'LinkedIn', url: 'https://linkedin.com/company/infinititech-partners', icon: 'linkedin' },
+  { name: 'Twitter', url: 'https://twitter.com/infinititechp', icon: 'twitter' },
+  { name: 'GitHub', url: 'https://github.com/infinititech-partners', icon: 'github' },
+  { name: 'Instagram', url: 'https://instagram.com/infinititechpartners', icon: 'instagram' },
+];
 
 export default function ContactPage() {
+  const settings = useSiteSettings();
+
+  // Get contact info from Sanity with fallbacks
+  const email = settings.email || defaultContactInfo.email;
+  const phone = settings.phone || defaultContactInfo.phone;
+  const address = settings.address || defaultContactInfo.address;
+  const socialLinks = settings.socialLinks && settings.socialLinks.length > 0
+    ? settings.socialLinks
+    : defaultSocialLinks;
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -147,10 +184,10 @@ export default function ContactPage() {
                   <div>
                     <h3 className="font-semibold mb-2">Email Us</h3>
                     <a
-                      href={`mailto:${COMPANY_INFO.email}`}
+                      href={`mailto:${email}`}
                       className="text-xl text-primary hover:text-primary/80 transition-colors font-semibold"
                     >
-                      {COMPANY_INFO.email}
+                      {email}
                     </a>
                     <p className="text-sm text-muted-foreground mt-2">
                       We'll respond within 24 hours
@@ -167,7 +204,9 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-2">Call Us</h3>
-                    <p className="text-xl font-semibold">+91 629 103 3969</p>
+                    <a href={`tel:${phone.replace(/\s/g, '')}`} className="text-xl font-semibold hover:text-primary transition-colors">
+                      {phone}
+                    </a>
                     <p className="text-sm text-muted-foreground mt-2">Mon-Fri, 9AM-6PM IST</p>
                   </div>
                 </div>
@@ -182,9 +221,9 @@ export default function ContactPage() {
                   <div>
                     <h3 className="font-semibold mb-2">Visit Us</h3>
                     <p className="text-muted-foreground">
-                      Kolkata, West Bengal
+                      {address.city}{address.state ? `, ${address.state}` : ''}
                       <br />
-                      India
+                      {address.country}
                     </p>
                   </div>
                 </div>
@@ -194,20 +233,17 @@ export default function ContactPage() {
               <div className="bg-muted/20 p-8 rounded-3xl border-2 border-primary/30">
                 <h3 className="font-semibold mb-4">Follow Us</h3>
                 <div className="flex gap-3">
-                  {[
-                    { icon: Linkedin, href: '#' },
-                    { icon: Twitter, href: '#' },
-                    { icon: Github, href: '#' },
-                    { icon: Instagram, href: '#' },
-                  ].map((social, idx) => {
-                    const Icon = social.icon;
+                  {socialLinks.map((social) => {
+                    const iconKey = social.icon as keyof typeof socialIcons;
+                    const Icon = socialIcons[iconKey] || Linkedin;
                     return (
                       <a
-                        key={idx}
-                        href={social.href}
+                        key={social.name}
+                        href={social.url}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="w-12 h-12 rounded-full bg-muted hover:bg-primary/20 flex items-center justify-center transition-all hover:scale-110"
+                        aria-label={social.name}
                       >
                         <Icon size={20} className="text-foreground hover:text-primary transition-colors" />
                       </a>

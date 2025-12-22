@@ -1,10 +1,39 @@
-import { PORTFOLIO_ITEMS } from '@/lib/constants';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import type { PortfolioItem } from '@/lib/sanity/types';
 
-export default function PortfolioPreview() {
+// Fallback data if Sanity fetch fails
+const FALLBACK_PORTFOLIO = [
+  { _id: '1', title: 'Enterprise Data Center', description: 'Modular data center deployment for a Fortune 500 company', category: 'Data Center', technologies: ['Docker', 'Kubernetes', 'Terraform'], gradient: 'linear-gradient(135deg, #FF9966, #FF6B35)' },
+  { _id: '2', title: 'Smart City Platform', description: 'IoT-powered urban infrastructure management system', category: 'Smart City', technologies: ['React', 'Node.js', 'MongoDB'], gradient: 'linear-gradient(135deg, #14b8a6, #10b981)' },
+  { _id: '3', title: 'E-Commerce Solution', description: 'Full-stack e-commerce platform with inventory management', category: 'Web Development', technologies: ['Next.js', 'PostgreSQL', 'Stripe'], gradient: 'linear-gradient(135deg, #8b5cf6, #a855f7)' },
+];
+
+// Helper function to get background style
+function getBackgroundStyle(item: PortfolioItem | typeof FALLBACK_PORTFOLIO[0]): string {
+  // If it has a gradient field (Sanity or fallback)
+  if ('gradient' in item && item.gradient) {
+    return item.gradient;
+  }
+  // If it's a Sanity item with image URL (expanded from GROQ query)
+  if ('image' in item && item.image) {
+    const imageData = item.image as { asset?: { url?: string } };
+    if (imageData?.asset?.url) {
+      return `url(${imageData.asset.url})`;
+    }
+  }
+  // Default gradient
+  return 'linear-gradient(135deg, #8b5cf6, #a855f7)';
+}
+
+interface PortfolioPreviewProps {
+  portfolioItems?: PortfolioItem[];
+}
+
+export default function PortfolioPreview({ portfolioItems }: PortfolioPreviewProps) {
   // Show only first 3 items
-  const featuredProjects = PORTFOLIO_ITEMS.slice(0, 3);
+  const displayItems = portfolioItems && portfolioItems.length > 0 ? portfolioItems : FALLBACK_PORTFOLIO;
+  const featuredProjects = displayItems.slice(0, 3);
 
   return (
     <section className="py-32 bg-background/30 relative z-10">
@@ -23,13 +52,13 @@ export default function PortfolioPreview() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {featuredProjects.map((item, idx) => (
             <div
-              key={idx}
+              key={item._id || idx}
               className="group rounded-3xl overflow-hidden bg-muted/20 border border-primary/20 transition-all hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/20 card-hover"
             >
               {/* Project Image/Gradient */}
               <div
-                className="h-48 flex items-center justify-center text-5xl relative overflow-hidden"
-                style={{ background: item.image }}
+                className="h-48 flex items-center justify-center text-5xl relative overflow-hidden bg-cover bg-center"
+                style={{ background: getBackgroundStyle(item as PortfolioItem) }}
               >
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all" />
                 <span className="relative z-10 transform group-hover:scale-110 transition-transform">
@@ -51,7 +80,7 @@ export default function PortfolioPreview() {
 
                 {/* Technologies */}
                 <div className="flex flex-wrap gap-2">
-                  {item.technologies.slice(0, 3).map((tech, tIdx) => (
+                  {(item.technologies || []).slice(0, 3).map((tech, tIdx) => (
                     <span
                       key={tIdx}
                       className="text-xs px-2 py-1 rounded-md bg-muted text-muted-foreground"

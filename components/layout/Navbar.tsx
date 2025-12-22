@@ -5,11 +5,29 @@ import { usePathname } from 'next/navigation';
 import { NAVIGATION_LINKS } from '@/lib/constants';
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import { useSiteSettings } from '@/lib/context/SiteSettingsContext';
+
+// Default navigation links for fallback
+const defaultNavLinks = [
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Services', href: '/services' },
+  { label: 'Products', href: '/products' },
+  { label: 'Portfolio', href: '/portfolio' },
+  { label: 'Team', href: '/team' },
+  { label: 'Contact', href: '/contact' },
+];
 
 export default function Navbar() {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const settings = useSiteSettings();
+
+  // Get navigation links from Sanity with fallback
+  const navigationLinks = settings.navigationLinks && settings.navigationLinks.length > 0
+    ? settings.navigationLinks
+    : defaultNavLinks;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,7 +64,7 @@ export default function Navbar() {
 
           {/* Desktop Navigation Links */}
           <div className="hidden md:flex gap-6 lg:gap-10 items-center">
-            {NAVIGATION_LINKS.map((link) => (
+            {navigationLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
@@ -89,7 +107,7 @@ export default function Navbar() {
           onClick={() => setIsMobileMenuOpen(false)}
         >
           <div className="flex flex-col items-center justify-start gap-6 sm:gap-8 px-4 w-full h-full overflow-y-auto">
-            {NAVIGATION_LINKS.map((link, index) => (
+            {navigationLinks.map((link, index) => (
               <Link
                 key={link.href}
                 href={link.href}

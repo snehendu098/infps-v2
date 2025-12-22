@@ -69,13 +69,14 @@ body {
   overflow-x: hidden;
 }
 
-/* Custom cursor only on desktop devices */
+/* Custom cursor only on desktop devices and non-studio pages */
 @media (hover: hover) and (pointer: fine) {
-  body {
+  body.custom-cursor {
     cursor: none;
   }
 
-  a, button {
+  body.custom-cursor a,
+  body.custom-cursor button {
     cursor: none;
   }
 }

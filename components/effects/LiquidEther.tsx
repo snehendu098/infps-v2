@@ -2,7 +2,27 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-export default function LiquidEther() {
+interface LiquidEtherProps {
+  desktopParticleCount?: number;
+  tabletParticleCount?: number;
+  mobileParticleCount?: number;
+  primaryColor?: { h: number; s: number; l: number };
+  secondaryColor?: { h: number; s: number; l: number };
+  desktopBlur?: number;
+  tabletBlur?: number;
+  mobileBlur?: number;
+}
+
+export default function LiquidEther({
+  desktopParticleCount = 50,
+  tabletParticleCount = 35,
+  mobileParticleCount = 20,
+  primaryColor = { h: 20, s: 100, l: 70 },
+  secondaryColor = { h: 15, s: 100, l: 60 },
+  desktopBlur = 40,
+  tabletBlur = 30,
+  mobileBlur = 20,
+}: LiquidEtherProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
@@ -42,14 +62,14 @@ export default function LiquidEther() {
       hue: number;
     }> = [];
 
-    // Responsive particle count and size
+    // Responsive particle count and size - using props
     const getParticleConfig = () => {
       if (isMobile) {
-        return { count: 20, minSize: 30, maxSize: 60 }; // Fewer, smaller particles for mobile
+        return { count: mobileParticleCount, minSize: 30, maxSize: 60 };
       } else if (isTablet) {
-        return { count: 35, minSize: 40, maxSize: 80 }; // Medium for tablet
+        return { count: tabletParticleCount, minSize: 40, maxSize: 80 };
       } else {
-        return { count: 50, minSize: 50, maxSize: 100 }; // Full effect for desktop
+        return { count: desktopParticleCount, minSize: 50, maxSize: 100 };
       }
     };
 
@@ -57,8 +77,8 @@ export default function LiquidEther() {
     const particleCount = config.count;
 
     const colors = {
-      primary: { h: 20, s: 100, l: 70 }, // #FF9966 (coral)
-      secondary: { h: 15, s: 100, l: 60 }, // #FF6B35 (orange)
+      primary: primaryColor,
+      secondary: secondaryColor,
     };
 
     // Initialize particles with responsive sizing
@@ -147,11 +167,11 @@ export default function LiquidEther() {
     };
   }, [isMobile, isTablet]);
 
-  // Responsive blur amount
+  // Responsive blur amount - using props
   const getBlurAmount = () => {
-    if (isMobile) return '20px'; // Less blur on mobile for better performance
-    if (isTablet) return '30px'; // Medium blur on tablet
-    return '40px'; // Full blur on desktop
+    if (isMobile) return `${mobileBlur}px`;
+    if (isTablet) return `${tabletBlur}px`;
+    return `${desktopBlur}px`;
   };
 
   return (

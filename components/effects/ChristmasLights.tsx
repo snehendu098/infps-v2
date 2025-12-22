@@ -2,7 +2,19 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-export default function ChristmasLights() {
+interface ChristmasLightsProps {
+  spacing?: number;
+  colors?: string[];
+  pulseSpeed?: number;
+  glowRadius?: number;
+}
+
+export default function ChristmasLights({
+  spacing = 60,
+  colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffffff'],
+  pulseSpeed = 0.02,
+  glowRadius = 15,
+}: ChristmasLightsProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isVisible, setIsVisible] = useState(true); // Visible by default
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -51,18 +63,18 @@ export default function ChristmasLights() {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Light colors
-    const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffffff'];
+    // Light colors - using props
+    const lightColors = colors;
 
-    // Light positions
+    // Light positions - using props
     const lights: Array<{ x: number; color: string; offset: number }> = [];
-    const spacing = 60;
-    const numLights = Math.ceil(canvas.width / spacing);
+    const lightSpacing = spacing;
+    const numLights = Math.ceil(canvas.width / lightSpacing);
 
     for (let i = 0; i < numLights; i++) {
       lights.push({
-        x: i * spacing + 30,
-        color: colors[i % colors.length],
+        x: i * lightSpacing + 30,
+        color: lightColors[i % lightColors.length],
         offset: Math.random() * Math.PI * 2,
       });
     }
@@ -72,7 +84,7 @@ export default function ChristmasLights() {
 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      time += 0.02; // Slower for smoother dimming/brightening
+      time += pulseSpeed; // Use prop for animation speed
 
       // Draw wire
       ctx.strokeStyle = 'rgba(100, 100, 100, 0.3)';
@@ -97,8 +109,8 @@ export default function ChristmasLights() {
         const pulse = Math.sin(time + light.offset) * 0.35 + 0.65;
 
         // Glow effect with pulsing intensity
-        const glowRadius = 15 + Math.sin(time + light.offset) * 3;
-        const gradient = ctx.createRadialGradient(light.x, y, 0, light.x, y, glowRadius);
+        const currentGlowRadius = glowRadius + Math.sin(time + light.offset) * 3;
+        const gradient = ctx.createRadialGradient(light.x, y, 0, light.x, y, currentGlowRadius);
         gradient.addColorStop(0, light.color);
         gradient.addColorStop(0.4, `${light.color}80`);
         gradient.addColorStop(0.7, `${light.color}40`);
@@ -107,7 +119,7 @@ export default function ChristmasLights() {
         ctx.fillStyle = gradient;
         ctx.globalAlpha = pulse * 0.8;
         ctx.beginPath();
-        ctx.arc(light.x, y, glowRadius, 0, Math.PI * 2);
+        ctx.arc(light.x, y, currentGlowRadius, 0, Math.PI * 2);
         ctx.fill();
 
         // Light bulb with pulsing brightness

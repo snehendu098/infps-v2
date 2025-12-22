@@ -11,7 +11,25 @@ interface Snowflake {
   opacity: number;
 }
 
-export default function Snowfall() {
+interface SnowfallProps {
+  snowflakeCount?: number;
+  minRadius?: number;
+  maxRadius?: number;
+  minSpeed?: number;
+  maxSpeed?: number;
+  minOpacity?: number;
+  maxOpacity?: number;
+}
+
+export default function Snowfall({
+  snowflakeCount = 70,
+  minRadius = 0.5,
+  maxRadius = 2.5,
+  minSpeed = 0.2,
+  maxSpeed = 0.7,
+  minOpacity = 0.15,
+  maxOpacity = 0.45,
+}: SnowfallProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -31,17 +49,17 @@ export default function Snowfall() {
 
     // Snowflakes array
     const snowflakes: Snowflake[] = [];
-    const snowflakeCount = 70;
+    const count = snowflakeCount;
 
-    // Initialize snowflakes
-    for (let i = 0; i < snowflakeCount; i++) {
+    // Initialize snowflakes with props
+    for (let i = 0; i < count; i++) {
       snowflakes.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        radius: Math.random() * 2 + 0.5, // Smaller flakes (was 3 + 1)
-        speed: Math.random() * 0.5 + 0.2, // Slower fall (was 1 + 0.5)
-        wind: Math.random() * 0.3 - 0.15, // Less wind drift (was 0.5 - 0.25)
-        opacity: Math.random() * 0.3 + 0.15, // More subtle (was 0.5 + 0.3)
+        radius: Math.random() * (maxRadius - minRadius) + minRadius,
+        speed: Math.random() * (maxSpeed - minSpeed) + minSpeed,
+        wind: Math.random() * 0.3 - 0.15,
+        opacity: Math.random() * (maxOpacity - minOpacity) + minOpacity,
       });
     }
 

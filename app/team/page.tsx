@@ -1,7 +1,53 @@
-import { TEAM } from '@/lib/constants';
+import { getTeamMembers } from '@/lib/sanity/fetch';
 import ProfileCard from '@/components/ui/ProfileCard';
 
-export default function TeamPage() {
+// Fallback team data in case Sanity has no data yet
+const fallbackTeam = [
+  {
+    name: 'Sudipto Ghosh',
+    role: 'Managing Director',
+    initial: 'SG',
+    color: 'from-[#DC2626] to-[#F97316]',
+    bio: 'Leading with vision and dedication to drive Infinititech Partners towards innovation and excellence.',
+    email: 'sudipto.ghosh@infinititechpartners.com',
+    linkedin: 'https://linkedin.com/in/sudipto-ghosh',
+  },
+  {
+    name: 'Arnab Ghosh',
+    role: 'Director of Operations',
+    initial: 'AG',
+    color: 'from-[#7C3AED] to-[#3B82F6]',
+    bio: 'Ensuring seamless operations and delivering exceptional results for our clients.',
+    email: 'arnab.ghosh@infinititechpartners.com',
+    linkedin: 'https://linkedin.com/in/arnab-ghosh',
+  },
+  {
+    name: 'Anwesha Samanta',
+    role: 'Financial Director',
+    initial: 'AS',
+    color: 'from-[#059669] to-[#10B981]',
+    bio: 'Managing financial strategies and ensuring sustainable growth for the company.',
+    email: 'anwesha.samanta@infinititechpartners.com',
+    linkedin: 'https://linkedin.com/in/anwesha-samanta',
+  },
+  {
+    name: 'Ashish Ghosh',
+    role: 'Technical Director',
+    initial: 'AG',
+    color: 'from-[#0891B2] to-[#22D3EE]',
+    bio: 'Driving technical excellence and innovation across all our projects and solutions.',
+    email: 'ashish.ghosh@infinititechpartners.com',
+    linkedin: 'https://linkedin.com/in/ashish-ghosh',
+  },
+];
+
+export default async function TeamPage() {
+  // Fetch team members from Sanity
+  const teamMembers = await getTeamMembers();
+
+  // Use Sanity data if available, otherwise use fallback
+  const team = teamMembers.length > 0 ? teamMembers : fallbackTeam;
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -20,16 +66,16 @@ export default function TeamPage() {
       <section className="py-20 bg-background">
         <div className="max-w-[1200px] mx-auto px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {TEAM.map((member, idx) => (
+            {team.map((member, idx) => (
               <ProfileCard
-                key={idx}
+                key={member.name || idx}
                 name={member.name}
                 role={member.role}
-                bio={member.bio}
-                initial={member.initial}
-                color={member.color}
-                email={`${member.name.toLowerCase().replace(' ', '.')}@infinititechpartners.com`}
-                linkedin={`https://linkedin.com/in/${member.name.toLowerCase().replace(' ', '-')}`}
+                bio={member.bio || ''}
+                initial={member.initial || member.name.split(' ').map(n => n[0]).join('')}
+                color={member.color || 'from-primary to-secondary'}
+                email={member.email || `${member.name.toLowerCase().replace(' ', '.')}@infinititechpartners.com`}
+                linkedin={member.linkedin || `https://linkedin.com/in/${member.name.toLowerCase().replace(' ', '-')}`}
               />
             ))}
           </div>

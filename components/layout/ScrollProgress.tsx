@@ -2,7 +2,15 @@
 
 import { useEffect, useState, useRef } from 'react';
 
-export default function ScrollProgress() {
+interface ScrollProgressProps {
+  color?: string;
+  height?: number;
+}
+
+export default function ScrollProgress({
+  color = '#FF9966',
+  height = 18,
+}: ScrollProgressProps) {
   const [scrollProgress, setScrollProgress] = useState(0);
   const pathRef = useRef<SVGPathElement>(null);
   const [pathLength, setPathLength] = useState(0);
@@ -86,11 +94,11 @@ export default function ScrollProgress() {
         style={{ position: 'absolute', top: 0, left: 0 }}
       >
         <defs>
-          {/* Orange gradient for the line */}
+          {/* Gradient for the line - using prop color */}
           <linearGradient id="scrollGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#FF9966" stopOpacity="0.7" />
-            <stop offset="50%" stopColor="#FF8547" stopOpacity="0.8" />
-            <stop offset="100%" stopColor="#FF6B35" stopOpacity="0.7" />
+            <stop offset="0%" stopColor={color} stopOpacity="0.7" />
+            <stop offset="50%" stopColor={color} stopOpacity="0.8" />
+            <stop offset="100%" stopColor={color} stopOpacity="0.7" />
           </linearGradient>
 
           {/* Soft glow filter */}
@@ -117,7 +125,7 @@ export default function ScrollProgress() {
              C 1500,950 1650,900 1800,750"
           fill="none"
           stroke="url(#scrollGradient)"
-          strokeWidth="18"
+          strokeWidth={height}
           strokeLinecap="round"
           strokeLinejoin="round"
           filter="url(#softGlow)"
