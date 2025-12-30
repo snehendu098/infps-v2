@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { Store, Calculator, GraduationCap, Truck, Building2, Users, UtensilsCrossed, Car } from 'lucide-react';
+import { Store, Calculator, GraduationCap, Truck, Building2, Users, UtensilsCrossed, Car, Monitor, CreditCard, ParkingCircle } from 'lucide-react';
 
 export default function ProductsPage() {
   const products = [
@@ -101,6 +101,42 @@ export default function ProductsPage() {
       description: 'Full-featured Uber-like ride-hailing solution with rider/driver mobile apps, admin dashboard, real-time GPS tracking, payments, and driver management.',
       technologies: ['Next.js', 'React Native', 'Node.js', 'PostgreSQL', 'Socket.io', 'Stripe'],
       highlights: 'Mobile apps for iOS/Android, real-time tracking, 22 database models',
+    },
+    {
+      title: 'NetWatch',
+      subtitle: 'Employee Monitoring Platform',
+      category: 'Enterprise / Security / Monitoring',
+      slug: 'netwatch',
+      icon: Monitor,
+      color: '#ef4444',
+      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070',
+      description: 'Comprehensive employee monitoring solution with real-time screen monitoring, activity tracking, remote management, website/app blocking, and detailed productivity analytics.',
+      technologies: ['Next.js 16', 'React 19', 'Prisma', 'PostgreSQL', 'Socket.io', 'Electron'],
+      highlights: 'Cross-platform agent, real-time screenshots, encrypted keylogging, remote desktop',
+    },
+    {
+      title: 'Xfer',
+      subtitle: 'Digital Payment Platform',
+      category: 'Fintech / Payments / Banking',
+      slug: 'xfer',
+      icon: CreditCard,
+      color: '#0ea5e9',
+      image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=2070',
+      description: 'PayPal-like payment platform with multi-currency wallets, P2P transfers, KYC verification, fraud detection, vendor payments, and comprehensive admin controls.',
+      technologies: ['Next.js 16', 'Prisma 7', 'PostgreSQL', 'Stripe', 'Plaid', 'Resend'],
+      highlights: '100+ database models, 4 user roles, KYC/AML compliance, fraud detection',
+    },
+    {
+      title: 'Sparking',
+      subtitle: 'AI-Powered Smart Parking',
+      category: 'IoT / AI / Smart City',
+      slug: 'sparking',
+      icon: ParkingCircle,
+      color: '#22c55e',
+      image: 'https://images.unsplash.com/photo-1506521781263-d8422e82f27a?q=80&w=2070',
+      description: 'AI-powered parking management system with real-time vehicle detection, automatic license plate recognition, digital payments, and hardware integration for gates and displays.',
+      technologies: ['Next.js 16', 'Prisma', 'PostgreSQL', 'Python', 'YOLOv8', 'Stripe'],
+      highlights: 'ANPR with <100ms latency, hardware control, predictive analytics, multi-tenant',
     },
   ];
 
