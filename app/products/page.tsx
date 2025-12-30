@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { Store, Calculator, GraduationCap, Truck, Building2, Users, UtensilsCrossed, Car, Monitor, CreditCard, ParkingCircle } from 'lucide-react';
+import { Store, Calculator, GraduationCap, Truck, Building2, Users, UtensilsCrossed, Car, Monitor, CreditCard, ParkingCircle, Hospital } from 'lucide-react';
 
 export default function ProductsPage() {
   const products = [
@@ -137,6 +137,18 @@ export default function ProductsPage() {
       description: 'AI-powered parking management system with real-time vehicle detection, automatic license plate recognition, digital payments, and hardware integration for gates and displays.',
       technologies: ['Next.js 16', 'Prisma', 'PostgreSQL', 'Python', 'YOLOv8', 'Stripe'],
       highlights: 'ANPR with <100ms latency, hardware control, predictive analytics, multi-tenant',
+    },
+    {
+      title: 'Hospital ERP',
+      subtitle: 'Complete Hospital Management System',
+      category: 'Healthcare / ERP / Medical',
+      slug: 'hospital-erp',
+      icon: Hospital,
+      color: '#dc2626',
+      image: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2070',
+      description: 'Enterprise hospital management system with EMR/EHR, patient registration, OPD/IPD management, pharmacy, laboratory, radiology, billing, and multi-branch support.',
+      technologies: ['React 18', 'Vite', 'Express.js', 'Prisma', 'PostgreSQL', 'Ant Design'],
+      highlights: 'HL7/FHIR ready, biometric integration, NABH/JCI compliant, multi-branch support',
     },
   ];
 
