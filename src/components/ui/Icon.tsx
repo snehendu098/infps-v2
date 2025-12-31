@@ -43,6 +43,7 @@ import {
   FileText,
   Calendar,
   ClipboardList,
+  Cpu,
   type LucideProps,
 } from "lucide-react";
 
@@ -91,6 +92,7 @@ const iconMap = {
   "file-text": FileText,
   calendar: Calendar,
   "clipboard-list": ClipboardList,
+  cpu: Cpu,
 } as const;
 
 export type IconName = keyof typeof iconMap;
