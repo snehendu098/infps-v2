@@ -1,5 +1,14 @@
-import { useRef, useState, ReactNode } from "react";
+import { useRef, useState, useEffect, ReactNode } from "react";
 import { Link } from "react-router-dom";
+
+const isTouchDevice = () => {
+  if (typeof window === "undefined") return false;
+  return (
+    "ontouchstart" in window ||
+    navigator.maxTouchPoints > 0 ||
+    window.matchMedia("(hover: none) and (pointer: coarse)").matches
+  );
+};
 
 interface MagneticButtonProps {
   children: ReactNode;
@@ -16,8 +25,14 @@ export const MagneticButton = ({
 }: MagneticButtonProps) => {
   const buttonRef = useRef<HTMLAnchorElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isTouch, setIsTouch] = useState(false);
+
+  useEffect(() => {
+    setIsTouch(isTouchDevice());
+  }, []);
 
   const handleMouseMove = (e: React.MouseEvent) => {
+    if (isTouch) return;
     const rect = buttonRef.current!.getBoundingClientRect();
     const x = e.clientX - rect.left - rect.width / 2;
     const y = e.clientY - rect.top - rect.height / 2;
@@ -35,7 +50,7 @@ export const MagneticButton = ({
     onMouseMove: handleMouseMove,
     onMouseLeave: handleMouseLeave,
     style: {
-      transform: `translate(${position.x}px, ${position.y}px)`,
+      transform: isTouch ? undefined : `translate(${position.x}px, ${position.y}px)`,
     },
     onClick,
   };

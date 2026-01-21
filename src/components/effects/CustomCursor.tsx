@@ -1,11 +1,27 @@
 import { useState, useEffect } from "react";
 
+const isTouchDevice = () => {
+  if (typeof window === "undefined") return false;
+  return (
+    "ontouchstart" in window ||
+    navigator.maxTouchPoints > 0 ||
+    window.matchMedia("(hover: none) and (pointer: coarse)").matches
+  );
+};
+
 export const CustomCursor = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [hidden, setHidden] = useState(true);
   const [hovered, setHovered] = useState(false);
+  const [isTouch, setIsTouch] = useState(false);
 
   useEffect(() => {
+    setIsTouch(isTouchDevice());
+  }, []);
+
+  useEffect(() => {
+    if (isTouch) return;
+
     const move = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
       setHidden(false);
@@ -30,7 +46,9 @@ export const CustomCursor = () => {
       window.removeEventListener("mousemove", move);
       window.removeEventListener("mouseleave", leave);
     };
-  }, []);
+  }, [isTouch]);
+
+  if (isTouch) return null;
 
   return (
     <>

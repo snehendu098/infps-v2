@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { createPortal } from "react-dom";
 import { MagneticButton } from "@/components/ui";
 import { navItems } from "@/data/data";
 
@@ -19,40 +20,82 @@ export const Navigation = () => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
-  return (
-    <nav className={`nav ${scrolled ? "scrolled" : ""}`}>
-      <div className="nav-inner">
-        <Link to="/" className="nav-logo">
-          <span className="logo-symbol">∞</span>
-          <span className="logo-text">Infinititech</span>
-        </Link>
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
 
-        <div className={`nav-links ${mobileOpen ? "open" : ""}`}>
-          {navItems.map((item, i) => (
+  const mobileMenu = mobileOpen
+    ? createPortal(
+        <div className="mobile-menu-overlay">
+          <div className="mobile-menu-content">
+            {navItems.map((item, i) => (
+              <Link
+                key={i}
+                to={item.href}
+                className={`mobile-menu-link ${location.pathname === item.href ? "active" : ""}`}
+                onClick={() => setMobileOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
             <Link
-              key={i}
-              to={item.href}
-              className={`nav-link ${location.pathname === item.href ? "active" : ""}`}
+              to="/contact"
+              className="nav-cta-mobile"
               onClick={() => setMobileOpen(false)}
             >
-              {item.label}
+              Let's Talk
             </Link>
-          ))}
+          </div>
+        </div>,
+        document.body
+      )
+    : null;
+
+  return (
+    <>
+      <nav className={`nav ${scrolled ? "scrolled" : ""} ${mobileOpen ? "mobile-open" : ""}`}>
+        <div className="nav-inner">
+          <Link to="/" className="nav-logo">
+            <span className="logo-symbol">∞</span>
+            <span className="logo-text">Infinititech</span>
+          </Link>
+
+          <div className="nav-links">
+            {navItems.map((item, i) => (
+              <Link
+                key={i}
+                to={item.href}
+                className={`nav-link ${location.pathname === item.href ? "active" : ""}`}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+
+          <MagneticButton href="/contact" className="nav-cta">
+            Let's Talk
+          </MagneticButton>
+
+          <button
+            className={`nav-mobile-toggle ${mobileOpen ? "open" : ""}`}
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle menu"
+          >
+            <span />
+            <span />
+            <span />
+          </button>
         </div>
-
-        <MagneticButton href="/contact" className="nav-cta">
-          Let's Talk
-        </MagneticButton>
-
-        <button
-          className={`nav-mobile-toggle ${mobileOpen ? "open" : ""}`}
-          onClick={() => setMobileOpen(!mobileOpen)}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
-      </div>
-    </nav>
+      </nav>
+      {mobileMenu}
+    </>
   );
 };
